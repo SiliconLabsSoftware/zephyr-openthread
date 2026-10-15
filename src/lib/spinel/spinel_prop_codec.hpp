@@ -210,6 +210,142 @@ otError DecodeDnssdSrvResult(Decoder              &aDecoder,
                              otPlatDnssdSrvResult &aSrvResult,
                              const uint8_t       *&aCallbackData,
                              uint16_t             &aCallbackDataLen);
+
+/**
+ * Use Spinel::Encode to encode a Dnssd TXT result.
+ *
+ * @param[in] aEncoder          A reference to the encoder object.
+ * @param[in] aTxtResult        A reference to the TXT result.
+ * @param[in] aCallbackData     A pointer to the callback data.
+ * @param[in] aCallbackDataLen  The data length.
+ */
+otError EncodeDnssdTxtResult(Encoder                    &aEncoder,
+                             const otPlatDnssdTxtResult &aTxtResult,
+                             const uint8_t              *aCallbackData,
+                             uint16_t                    aCallbackDataLen);
+
+/**
+ * Use Spinel::Decoder to decode a SPINEL_PROP_DNSSD_TXT_RESOLVER message to a otPlatDnssdTxtResolver.
+ *
+ * @param[in]  aDecoder          A reference to the decoder object.
+ * @param[out] aTxtResolver      A reference to the TXT resolver.
+ * @param[out] aCallbackData     A reference to the pointer to the callback data.
+ * @param[out] aCallbackDataLen  A reference to the callback data length.
+ */
+otError DecodeDnssdTxtResolver(Decoder                &aDecoder,
+                               otPlatDnssdTxtResolver &aTxtResolver,
+                               const uint8_t         *&aCallbackData,
+                               uint16_t               &aCallbackDataLen);
+
+/**
+ * Use Spinel::Decoder to decode a SPINEL_PROP_DNSSD_TXT_RESULT message to a otPlatDnssdTxtResult.
+ *
+ * @param[in]  aDecoder          A reference to the decoder object.
+ * @param[out] aTxtResult        A reference to the TXT result.
+ * @param[out] aCallbackData     A reference to the pointer to the callback data.
+ * @param[out] aCallbackDataLen  A reference to the callback data length.
+ */
+otError DecodeDnssdTxtResult(Decoder              &aDecoder,
+                             otPlatDnssdTxtResult &aTxtResult,
+                             const uint8_t       *&aCallbackData,
+                             uint16_t             &aCallbackDataLen);
+
+/**
+ * Use Spinel::Encode to encode a Dnssd Address result.
+ *
+ * @param[in] aEncoder          A reference to the encoder object.
+ * @param[in] aAddressResult    A reference to the Address result.
+ * @param[in] aCallbackData     A pointer to the callback data.
+ * @param[in] aCallbackDataLen  The data length.
+ */
+otError EncodeDnssdAddressResult(Encoder                        &aEncoder,
+                                 const otPlatDnssdAddressResult &aAddressResult,
+                                 const uint8_t                  *aCallbackData,
+                                 uint16_t                        aCallbackDataLen);
+
+/**
+ * Use Spinel::Decoder to decode a SPINEL_PROP_DNSSD_IP6_ADDRESS_RESOLVER message to a otPlatDnssdAddressResolver.
+ *
+ * @param[in]  aDecoder          A reference to the decoder object.
+ * @param[out] aAddressResolver  A reference to the Address resolver.
+ * @param[out] aCallbackData     A reference to the pointer to the callback data.
+ * @param[out] aCallbackDataLen  A reference to the callback data length.
+ */
+otError DecodeDnssdAddressResolver(Decoder                    &aDecoder,
+                                   otPlatDnssdAddressResolver &aAddressResolver,
+                                   const uint8_t             *&aCallbackData,
+                                   uint16_t                   &aCallbackDataLen);
+
+/**
+ * Use Spinel::Decoder to decode a SPINEL_PROP_DNSSD_IP6_ADDRESS_RESULT message to a otPlatDnssdAddressResult.
+ *
+ * @param[in]  aDecoder          A reference to the decoder object.
+ * @param[out] aAddressResult    A reference to the Address result.
+ * @param[out] aAddressArray     A pointer to the array of Address and TTL.
+ * @param[in]  aMaxAddresses     The maximum number of addresses.
+ * @param[out] aCallbackData     A reference to the pointer to the callback data.
+ * @param[out] aCallbackDataLen  A reference to the callback data length.
+ */
+otError DecodeDnssdAddressResult(Decoder                  &aDecoder,
+                                 otPlatDnssdAddressResult &aAddressResult,
+                                 otPlatDnssdAddressAndTtl *aAddressArray,
+                                 uint16_t                  aMaxAddresses,
+                                 const uint8_t           *&aCallbackData,
+                                 uint16_t                 &aCallbackDataLen);
+
+/**
+ * Encodes a DNS upstream query or response payload (`CSd` format).
+ *
+ * @param[in] aEncoder     A reference to the encoder object.
+ * @param[in] aTxnIndex    The transaction index.
+ * @param[in] aData        A pointer to the DNS wire payload.
+ * @param[in] aDataLength  The DNS wire payload length in bytes.
+ */
+otError EncodeDnsUpstreamWireMessage(Encoder &aEncoder, uint8_t aTxnIndex, const uint8_t *aData, uint16_t aDataLength);
+
+/**
+ * Decodes a DNS upstream query or response payload (`CSd` format).
+ *
+ * @param[in]  aDecoder      A reference to the decoder object.
+ * @param[out] aTxnIndex     A reference to the transaction index.
+ * @param[out] aData         A reference to the pointer to the DNS wire payload.
+ * @param[out] aDataLength    A reference to the DNS wire payload length in bytes.
+ */
+otError DecodeDnsUpstreamWireMessage(Decoder        &aDecoder,
+                                     uint8_t        &aTxnIndex,
+                                     const uint8_t *&aData,
+                                     uint16_t       &aDataLength);
+
+/**
+ * Decodes a DNS upstream cancel payload (`C` format).
+ *
+ * @param[in]  aDecoder   A reference to the decoder object.
+ * @param[out] aTxnIndex  A reference to the transaction index.
+ */
+otError DecodeDnsUpstreamCancel(Decoder &aDecoder, uint8_t &aTxnIndex);
+
+/**
+ * Encodes a DNS upstream RDNSS server list (`C6` format).
+ *
+ * @param[in] aEncoder      A reference to the encoder object.
+ * @param[in] aServers      IPv6 recursive DNS server addresses.
+ * @param[in] aNumServers   Number of servers (max 3).
+ */
+otError EncodeDnsUpstreamRdnssServers(Encoder &aEncoder, const otIp6Address *aServers, uint8_t aNumServers);
+
+/**
+ * Decodes a DNS upstream RDNSS server list (`C6` format).
+ *
+ * @param[in]  aDecoder      A reference to the decoder object.
+ * @param[out] aServers      Output array for IPv6 server addresses.
+ * @param[out] aNumServers   Number of servers read.
+ * @param[in]  aMaxServers   Capacity of @p aServers.
+ */
+otError DecodeDnsUpstreamRdnssServers(Decoder      &aDecoder,
+                                      otIp6Address *aServers,
+                                      uint8_t      &aNumServers,
+                                      uint8_t       aMaxServers);
+
 } // namespace Spinel
 } // namespace ot
 

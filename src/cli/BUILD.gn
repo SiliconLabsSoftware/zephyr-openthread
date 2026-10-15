@@ -82,6 +82,7 @@ static_library("cli_config") {
 }
 
 static_library("libopenthread-cli-ftd") {
+  configs += [ "../..:openthread_private_flags" ]
   sources = openthread_cli_sources
   public_deps = [
     ":cli_config",
@@ -91,6 +92,7 @@ static_library("libopenthread-cli-ftd") {
 }
 
 static_library("libopenthread-cli-mtd") {
+  configs += [ "../..:openthread_private_flags" ]
   sources = openthread_cli_sources
   public_deps = [
     ":cli_config",

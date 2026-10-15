@@ -959,6 +959,7 @@ group("libopenthread_platform") {
 }
 
 static_library("libopenthread-ftd") {
+  configs += [ "../..:openthread_private_flags" ]
   sources = openthread_core_sources
   if (openthread_enable_core_config_args && openthread_config_tcp_enable) {
     deps = [ "../../third_party/tcplp" ]
@@ -968,6 +969,7 @@ static_library("libopenthread-ftd") {
 }
 
 static_library("libopenthread-mtd") {
+  configs += [ "../..:openthread_private_flags" ]
   sources = openthread_core_sources
   if (openthread_enable_core_config_args && openthread_config_tcp_enable) {
     deps = [ "../../third_party/tcplp" ]
@@ -977,6 +979,7 @@ static_library("libopenthread-mtd") {
 }
 
 static_library("libopenthread-radio") {
+  configs += [ "../..:openthread_private_flags" ]
   sources = openthread_radio_sources
   public_deps = [ ":libopenthread_platform" ]
   public_configs = [ "../..:openthread_radio_config" ]
